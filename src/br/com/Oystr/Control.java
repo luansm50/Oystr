@@ -12,7 +12,6 @@ import org.jsoup.nodes.DocumentType;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
-import testeoystr.TesteOystr;
 
 /**
  *
@@ -23,11 +22,12 @@ public class Control {
     //
     public static String[] analysisProcess(String url) {
         //string usada para retornar os dados para exibição
-        String[] datas = new String[5];
-        //adiciona a URL no atributo @datas
-        datas[0] = url;
+        String[] datas;
 
         try {
+            datas = new String[5];
+            //adiciona a URL no atributo @datas
+            datas[0] = url;
             Document doc = Jsoup.connect(url).get();
             //adiciona o título da página no atributo @datas
             datas[2] = doc.head().selectFirst("title").text();
@@ -52,12 +52,12 @@ public class Control {
             //adiona a quantidade de links internos e externos no atributo @datas
             datas[3] = String.valueOf(out);//adiciona link externo
             datas[4] = String.valueOf(in);//adiciona link interno
-
+            return datas;
         } catch (IOException ex) {
-            Logger.getLogger(TesteOystr.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
 
-        return datas;
     }
 
     //identifica a versão do HTML
